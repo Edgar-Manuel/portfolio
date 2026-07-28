@@ -12,7 +12,7 @@ export function Footer() {
             <div>
               <div className="text-sm font-medium text-fg">Edgar Manchón</div>
               <div className="font-mono text-[11px] text-fg-faint">
-                AI Systems Builder · Web Developer
+                 Python Backend & AI Developer
               </div>
             </div>
           </div>

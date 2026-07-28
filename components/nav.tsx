@@ -6,11 +6,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const links = [
+  { href: "#sobre-mi", label: "Perfil" },
   { href: "#trabajo", label: "Trabajo" },
   { href: "#stack", label: "Stack" },
   { href: "#agentes", label: "IA" },
   { href: "#github", label: "GitHub" },
-  { href: "#vision", label: "Visión" },
+  { href: "#contacto", label: "Contacto" },
 ];
 
 export function Nav() {
