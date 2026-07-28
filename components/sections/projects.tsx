@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Check, Code2, Lightbulb, Target } from "lucide-react";
+import { ArrowUpRight, Check, Code2, Lightbulb, Target, Sparkles } from "lucide-react";
 import { FadeIn, Stagger, StaggerItem } from "@/components/ui/fade-in";
 import { SectionHeader } from "@/components/ui/section-header";
 import { cn } from "@/lib/utils";
@@ -21,9 +21,13 @@ type Project = {
   demo?: string;
   accent: string;
   visual: React.ReactNode;
+  architectureSteps?: Array<{ step: string; title: string; desc: string }>;
+  codeSnippet?: { language: string; filename: string; code: string };
 };
 
-const projects: Project[] = [
+import { ProjectModal, ProjectDetail } from "@/components/ui/project-modal";
+
+export const projects: ProjectDetail[] = [
   {
     id: "gymbro",
     number: "01",
@@ -38,8 +42,35 @@ const projects: Project[] = [
     result:
       "App 100% offline e instalable como PWA con biblioteca de ejercicios, dashboard de progreso, rutinas personalizadas y sincronización pendiente. Sin servidores, sin anuncios, sin tracking.",
     href: "https://github.com/Edgar-Manuel/Gymbro-",
+    demo: "https://gym-bro.appwrite.network/",
     accent: "from-emerald-300/20 via-emerald-200/10",
     visual: <GymbroVisual />,
+    images: ["/projects/gymbro-dashboard.png"],
+    architectureSteps: [
+      { step: "Storage Layer", title: "IndexedDB + Dexie.js", desc: "Persistencia local instantánea sin latencia de red" },
+      { step: "State Management", title: "Zustand Reactive Store", desc: "Gestión de estado ligero para temporizadores y rutinas activas" },
+      { step: "PWA Service Worker", title: "Cache First Strategy", desc: "Instalable como app nativa sin conexión a internet" },
+    ],
+    codeSnippet: {
+      language: "typescript",
+      filename: "db.ts (Dexie Schema)",
+      code: `import Dexie, { Table } from 'dexie';
+
+export interface Exercise {
+  id?: number;
+  name: string;
+  category: 'Chest' | 'Back' | 'Legs' | 'Shoulders';
+  tier: 'S' | 'A' | 'B';
+}
+
+export class GymDatabase extends Dexie {
+  exercises!: Table<Exercise>;
+  constructor() {
+    super('GymbroDB');
+    this.version(1).stores({ exercises: '++id, name, category, tier' });
+  }
+}`,
+    },
   },
   {
     id: "tubethink",
@@ -57,6 +88,23 @@ const projects: Project[] = [
     href: "https://github.com/Edgar-Manuel/tubethink",
     accent: "from-sky-300/20 via-sky-200/10",
     visual: <ShiftVisual />,
+    architectureSteps: [
+      { step: "Ingesta", title: "Whisper & Transcript Extract", desc: "Extracción automática de subtítulos y chunkeado semántico" },
+      { step: "Vector Index", title: "pgvector & Embeddings", desc: "Almacenamiento vectorial en PostgreSQL con similitud coseno" },
+      { step: "RAG Pipeline", title: "Hybrid Search & LLM", desc: "Generación de respuesta grounded en las transcripciones exactas" },
+    ],
+    codeSnippet: {
+      language: "python",
+      filename: "rag_service.py",
+      code: `from openai import OpenAI
+import pgvector
+
+def retrieve_video_context(query: str, top_k: font = 3):
+    embedding = get_embedding(query)
+    # Hybrid search using pgvector cosine distance + BM25 keyword matching
+    chunks = db.query("SELECT content FROM chunks ORDER BY embedding <=> %s LIMIT %s", (embedding, top_k))
+    return "\\n".join([c.content for c in chunks])`,
+    },
   },
   {
     id: "cumple",
@@ -74,6 +122,24 @@ const projects: Project[] = [
     href: "https://github.com/Edgar-Manuel/cumple",
     accent: "from-violet-300/20 via-violet-200/10",
     visual: <ConceptuVisual />,
+    architectureSteps: [
+      { step: "Orquestador", title: "FastAPI + Celery Task Queue", desc: "Programación de tareas asíncronas periódicas en background" },
+      { step: "Multi-Agente", title: "Planner & Gift Agents", desc: "Agentes autónomos especializados con herramientas dedicadas" },
+      { step: "Caching", title: "Redis State Store", desc: "Almacenamiento de contexto e historial de conversación" },
+    ],
+    codeSnippet: {
+      language: "python",
+      filename: "agent_orchestrator.py",
+      code: `from fastapi import FastAPI, BackgroundTasks
+
+app = FastAPI()
+
+@app.post("/api/v1/trigger-reminders")
+async def trigger_birthday_agents(user_id: str, background_tasks: BackgroundTasks):
+    # Queue multi-agent flow
+    background_tasks.add_task(run_agent_pipeline, user_id)
+    return {"status": "queued", "user_id": user_id}`,
+    },
   },
   {
     id: "ebookforge-ai",
@@ -91,6 +157,26 @@ const projects: Project[] = [
     href: "https://github.com/Edgar-Manuel/ebookforge-ai",
     accent: "from-emerald-300/20 via-emerald-200/10",
     visual: <CallVisual />,
+    images: ["/projects/ebookai-strategy.png", "/projects/ebookai-dashboard.png"],
+    architectureSteps: [
+      { step: "Structure Agent", title: "Table of Contents Generator", desc: "Crea esquema estructurado de capítulos en formato JSON" },
+      { step: "Streaming Engine", title: "Server-Sent Events (SSE)", desc: "Generación en tiempo real de capítulos con soporte para Claude" },
+    ],
+    codeSnippet: {
+      language: "typescript",
+      filename: "route.ts (Next.js Stream)",
+      code: `import { AnthropicStream, StreamingTextResponse } from 'ai';
+
+export async function POST(req: Request) {
+  const { prompt } = await req.json();
+  const response = await anthropic.messages.create({
+    model: 'claude-3-5-sonnet-20241022',
+    stream: true,
+    messages: [{ role: 'user', content: prompt }]
+  });
+  return new StreamingTextResponse(AnthropicStream(response));
+}`,
+    },
   },
   {
     id: "peluqueria-cool",
@@ -126,13 +212,25 @@ const projects: Project[] = [
     demo: "https://3d64rr3p0s.vercel.app/",
     accent: "from-rose-300/20 via-rose-200/10",
     visual: <ScrapingVisual />,
+    images: ["/projects/3d64rr3p0s-dashboard.png"],
   },
 ];
 
 export function Projects() {
+  const [selectedProject, setSelectedProject] = useState<ProjectDetail | null>(null);
+
   return (
     <section id="trabajo" className="section relative">
       <div className="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+      {selectedProject && (
+        <ProjectModal
+          project={selectedProject}
+          allProjects={projects}
+          onClose={() => setSelectedProject(null)}
+          onSelectProject={(p) => setSelectedProject(p)}
+        />
+      )}
 
       <div className="container-page">
         <FadeIn>
@@ -165,7 +263,11 @@ export function Projects() {
         >
           {projects.map((project, i) => (
             <StaggerItem key={project.id} y={24}>
-              <ProjectCard project={project} large={i === 0} />
+              <ProjectCard
+                project={project}
+                large={i === 0}
+                onSelectProject={(p) => setSelectedProject(p)}
+              />
             </StaggerItem>
           ))}
         </Stagger>
@@ -174,7 +276,15 @@ export function Projects() {
   );
 }
 
-function ProjectCard({ project, large = false }: { project: Project; large?: boolean }) {
+function ProjectCard({
+  project,
+  large = false,
+  onSelectProject,
+}: {
+  project: ProjectDetail;
+  large?: boolean;
+  onSelectProject: (project: ProjectDetail) => void;
+}) {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -211,17 +321,11 @@ function ProjectCard({ project, large = false }: { project: Project; large?: boo
             </div>
             <button
               type="button"
-              aria-label="Expandir caso de estudio"
-              onClick={() => setExpanded((v) => !v)}
-              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-border bg-bg/50 text-fg-muted transition-colors hover:border-border-strong hover:text-fg"
+              onClick={() => onSelectProject(project)}
+              className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400 hover:bg-emerald-500/20 transition-all"
             >
-              <motion.span
-                animate={{ rotate: expanded ? 45 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="inline-flex"
-              >
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </motion.span>
+              <Sparkles className="h-3 w-3" />
+              <span>Ver Caso Completo</span>
             </button>
           </div>
 
@@ -417,42 +521,20 @@ function ConceptuVisual() {
 
 function CallVisual() {
   return (
-    <div className="flex w-full max-w-xs flex-col items-center gap-3">
-      <div className="flex items-center gap-1.5">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <div
-            key={i}
-            className="w-1 rounded-full bg-white/40"
-            style={{ height: `${20 + Math.sin(i * 1.2) * 12 + 8}px`, animationDelay: `${i * 0.1}s` }}
-          />
-        ))}
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div
-            key={i + 5}
-            className="w-1 rounded-full bg-white/30"
-            style={{
-              height: `${10 + Math.abs(Math.sin(i * 0.7)) * 24}px`,
-              animation: `pulseSoft ${1 + i * 0.15}s ease-in-out infinite`,
-            }}
-          />
-        ))}
+    <div className="relative w-full h-full min-h-[160px] overflow-hidden rounded-lg border border-white/10 bg-black/60 shadow-lg group-hover:border-white/20 transition-colors">
+      <div className="flex items-center gap-1.5 border-b border-white/10 bg-white/5 px-3 py-1.5">
+        <span className="h-2 w-2 rounded-full bg-rose-500/80" />
+        <span className="h-2 w-2 rounded-full bg-amber-500/80" />
+        <span className="h-2 w-2 rounded-full bg-emerald-500/80" />
+        <span className="ml-1 font-mono text-[9px] text-fg-subtle">ebookai.app</span>
       </div>
-      <div className="font-mono text-[10px] uppercase tracking-wider text-fg-muted">
-        00:42 / live call
-      </div>
-      <div className="w-full space-y-1.5 rounded-lg border border-border bg-bg/40 p-2.5">
-        <div className="flex items-start gap-2">
-          <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/40" />
-          <div className="h-1.5 flex-1 rounded-full bg-white/10" />
-        </div>
-        <div className="flex items-start gap-2">
-          <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400/60" />
-          <div className="h-1.5 flex-1 rounded-full bg-white/20" />
-        </div>
-        <div className="flex items-start gap-2">
-          <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-white/40" />
-          <div className="h-1.5 w-2/3 rounded-full bg-white/10" />
-        </div>
+      <div className="relative h-44 w-full overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/projects/ebookai-strategy.png"
+          alt="EBookAI Strategy Dashboard"
+          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+        />
       </div>
     </div>
   );
@@ -487,84 +569,41 @@ function DropshipVisual() {
 
 function ScrapingVisual() {
   return (
-    <div className="grid w-full max-w-md grid-cols-2 gap-2">
-      {[
-        { city: "Madrid", count: "1,284", trend: "+12%" },
-        { city: "Barcelona", count: "942", trend: "+8%" },
-        { city: "Valencia", count: "611", trend: "+22%" },
-        { city: "Sevilla", count: "487", trend: "+5%" },
-      ].map((c) => (
-        <div
-          key={c.city}
-          className="rounded-lg border border-border bg-bg/40 p-3"
-        >
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-fg">{c.city}</span>
-            <span className="font-mono text-[9px] text-emerald-300/80">
-              {c.trend}
-            </span>
-          </div>
-          <div className="mt-2 font-sans text-2xl font-semibold tracking-tighter text-fg">
-            {c.count}
-          </div>
-          <div className="mt-1 font-mono text-[9px] text-fg-faint">
-            listings
-          </div>
-        </div>
-      ))}
+    <div className="relative w-full h-full min-h-[160px] overflow-hidden rounded-lg border border-white/10 bg-black/60 shadow-lg group-hover:border-white/20 transition-colors">
+      <div className="flex items-center gap-1.5 border-b border-white/10 bg-white/5 px-3 py-1.5">
+        <span className="h-2 w-2 rounded-full bg-rose-500/80" />
+        <span className="h-2 w-2 rounded-full bg-amber-500/80" />
+        <span className="h-2 w-2 rounded-full bg-emerald-500/80" />
+        <span className="ml-1 font-mono text-[9px] text-rose-400">3d64rr3p0s.vercel.app</span>
+      </div>
+      <div className="relative h-44 w-full overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/projects/3d64rr3p0s-dashboard.png"
+          alt="3D64RR3P0S Dashboard"
+          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
     </div>
   );
 }
 
 function GymbroVisual() {
   return (
-    <div className="flex w-full max-w-xs items-center justify-center">
-      <div className="relative rounded-[24px] border-2 border-white/15 bg-bg/60 p-2 shadow-lg">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-4 w-20 rounded-b-xl bg-white/10" />
-        <div className="rounded-[16px] border border-white/10 bg-bg/80 p-2.5">
-          <div className="flex items-center justify-between border-b border-white/10 pb-2">
-            <span className="text-[8px] font-bold text-emerald-400">GYMBRO</span>
-            <div className="flex gap-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
-              <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
-            </div>
-          </div>
-          <div className="mt-2 space-y-1.5">
-            <div className="flex items-center gap-1.5">
-              <div className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              <div className="h-1 flex-1 rounded bg-white/20" />
-              <span className="text-[6px] text-fg-muted">S</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <div className="h-1.5 w-1.5 rounded-full bg-blue-400" />
-              <div className="h-1 flex-1 rounded bg-white/15" />
-              <span className="text-[6px] text-fg-muted">A</span>
-            </div>
-            <div className="flex items-center gap-1.5">
-              <div className="h-1.5 w-1.5 rounded-full bg-yellow-400" />
-              <div className="h-1 flex-1 rounded bg-white/10" />
-              <span className="text-[6px] text-fg-muted">B</span>
-            </div>
-          </div>
-          <div className="mt-2 grid grid-cols-4 gap-0.5">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="aspect-square rounded bg-white/10" style={{ opacity: 0.3 + (i % 4) * 0.2 }} />
-            ))}
-          </div>
-          <div className="mt-1.5 flex items-center justify-between border-t border-white/10 pt-1.5">
-            <div className="flex gap-0.5">
-              {[40, 65, 30, 80, 55].map((h, i) => (
-                <div key={i} className="w-0.5 rounded-t-sm bg-emerald-400/60" style={{ height: `${h * 0.2}px` }} />
-              ))}
-            </div>
-            <span className="text-[6px] text-fg-muted">offline</span>
-          </div>
-        </div>
+    <div className="relative w-full h-full min-h-[160px] overflow-hidden rounded-lg border border-white/10 bg-black/60 shadow-lg group-hover:border-white/20 transition-colors">
+      <div className="flex items-center gap-1.5 border-b border-white/10 bg-white/5 px-3 py-1.5">
+        <span className="h-2 w-2 rounded-full bg-rose-500/80" />
+        <span className="h-2 w-2 rounded-full bg-amber-500/80" />
+        <span className="h-2 w-2 rounded-full bg-emerald-500/80" />
+        <span className="ml-1 font-mono text-[9px] text-emerald-400">gym-bro.appwrite.network</span>
       </div>
-      <div className="ml-2 space-y-1">
-        <div className="rounded border border-white/10 bg-white/[0.04] px-1.5 py-0.5 text-[6px] font-mono text-emerald-400">PWA</div>
-        <div className="rounded border border-white/10 bg-white/[0.04] px-1.5 py-0.5 text-[6px] font-mono text-blue-400">100% local</div>
-        <div className="rounded border border-white/10 bg-white/[0.04] px-1.5 py-0.5 text-[6px] font-mono text-fg-muted">React 19</div>
+      <div className="relative h-44 w-full overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/projects/gymbro-dashboard.png"
+          alt="GymBro Dashboard"
+          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+        />
       </div>
     </div>
   );

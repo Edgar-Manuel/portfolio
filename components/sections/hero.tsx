@@ -11,7 +11,12 @@ const stats = [
 
 const tags = ["FastAPI", "RAG", "Agentes", "APIs", "Automatización"];
 
-export function Hero() {
+interface HeroProps {
+  onOpenRecruiterModal?: () => void;
+  onOpenCommandPalette?: () => void;
+}
+
+export function Hero({ onOpenRecruiterModal, onOpenCommandPalette }: HeroProps) {
   return (
     <section
       id="top"
@@ -71,13 +76,20 @@ export function Hero() {
 
             <FadeIn delay={0.32}>
               <div className="mt-10 flex flex-wrap items-center gap-3">
+                <button
+                  onClick={onOpenRecruiterModal}
+                  className="btn-primary group border border-emerald-400/40 bg-emerald-500/10 text-emerald-300 hover:bg-emerald-500/20"
+                >
+                  <Sparkles className="h-4 w-4 text-emerald-400" />
+                  <span>Modo Reclutador (30s)</span>
+                </button>
                 <a href="#trabajo" className="btn-primary group">
                   Ver proyectos
                   <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
                 <a
                   href="mailto:emc2mil24@gmail.com"
-                  className="btn-primary group"
+                  className="btn-ghost group"
                 >
                   <Mail className="h-4 w-4" />
                   Contactar
