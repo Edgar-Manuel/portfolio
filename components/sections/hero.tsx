@@ -1,15 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowUpRight, Sparkles, Mail } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
 
 const stats = [
-  { value: "+30", label: "Repositorios propios" },
-  { value: "+75", label: "Proyectos estudiados" },
+  { value: "Python", label: "Backend + IA aplicada" },
+  { value: "ES", label: "Santander / remoto" },
 ];
 
-const tags = ["IA", "Automatización", "SaaS", "Web Apps", "Open Source"];
+const tags = ["FastAPI", "RAG", "Agentes", "APIs", "Automatización"];
 
 export function Hero() {
   return (
@@ -39,7 +39,7 @@ export function Hero() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60 opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
                 </span>
-                <span>Disponible para nuevos proyectos</span>
+                <span>Disponible para incorporarme · Santander / remoto en España</span>
               </div>
             </FadeIn>
 
@@ -54,17 +54,18 @@ export function Hero() {
 
             <FadeIn delay={0.15}>
               <p className="mt-8 max-w-2xl text-lg md:text-xl leading-relaxed text-fg text-pretty">
-                Construyo aplicaciones web, automatizaciones y agentes de IA que
-                transforman ideas en sistemas reales.
+                Python Backend & AI Developer
+                <br />
+                <span className="text-fg-muted">abierto a oportunidades.</span>
               </p>
             </FadeIn>
 
             <FadeIn delay={0.22}>
               <p className="mt-5 max-w-2xl text-base md:text-[17px] leading-relaxed text-fg-muted text-pretty">
-                Desarrollo soluciones digitales modernas utilizando
-                inteligencia artificial, automatización y tecnologías web
-                avanzadas. Mi enfoque consiste en convertir procesos complejos
-                en sistemas simples, eficientes y escalables.
+                Construyo APIs, pipelines RAG, agentes y automatizaciones.
+                Busco mi próximo equipo como Python Backend, AI Integration
+                o Automation Developer — en Santander, Cantabria o remoto
+                desde España.
               </p>
             </FadeIn>
 
@@ -74,8 +75,20 @@ export function Hero() {
                   Ver proyectos
                   <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </a>
-                <a href="#contacto" className="btn-ghost">
+                <a
+                  href="mailto:emc2mil24@gmail.com"
+                  className="btn-primary group"
+                >
+                  <Mail className="h-4 w-4" />
                   Contactar
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/edgarmanchon"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="btn-ghost"
+                >
+                  LinkedIn
                 </a>
               </div>
             </FadeIn>
@@ -84,14 +97,14 @@ export function Hero() {
               <div className="mt-16 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-fg-subtle">
                 <div className="flex items-center gap-2">
                   <Sparkles className="h-3.5 w-3.5 text-fg-muted" />
-                  <span>AI Systems Builder</span>
+                  <span>Python Backend</span>
                 </div>
                 <span className="hidden h-3 w-px bg-border-strong sm:block" />
-                <div>Web Developer</div>
+                <div>RAG + LLMs</div>
                 <span className="hidden h-3 w-px bg-border-strong sm:block" />
-                <div>Automation Engineer</div>
+                <div>AI Integrations</div>
                 <span className="hidden h-3 w-px bg-border-strong sm:block" />
-                <div>SaaS Builder</div>
+                <div>Open to work</div>
               </div>
             </FadeIn>
           </div>

@@ -37,6 +37,12 @@ const stack: Tech[] = [
     symbol: "Py",
   },
   {
+    name: "FastAPI",
+    category: "Backend",
+    description: "APIs y servicios para aplicaciones de IA.",
+    symbol: "Fa",
+  },
+  {
     name: "Supabase",
     category: "Backend",
     description: "Base de datos moderna con autenticación y tiempo real.",
@@ -83,6 +89,12 @@ const stack: Tech[] = [
     category: "IA",
     description: "Integración de inteligencia artificial en productos reales.",
     symbol: "OA",
+  },
+  {
+    name: "RAG",
+    category: "IA",
+    description: "Embeddings, búsqueda híbrida y contexto recuperado.",
+    symbol: "Rg",
   },
   {
     name: "DeepSeek",

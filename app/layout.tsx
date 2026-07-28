@@ -1,23 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const jetbrains = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
-
 const siteUrl = "https://edgarmanchon.com";
-const title = "Edgar Manchón — AI Systems Builder & Web Developer";
+const title = "Edgar Manchón — Python Backend & AI Developer";
 const description =
-  "Construyo aplicaciones web, automatizaciones y agentes de IA que transforman ideas en sistemas reales. AI Systems Builder, Automation Engineer y SaaS Builder.";
+  "Desarrollador Python backend e IA. Construyo APIs, sistemas RAG, integraciones LLM, agentes y automatizaciones con FastAPI, PostgreSQL y TypeScript.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -28,10 +15,10 @@ export const metadata: Metadata = {
   description,
   keywords: [
     "Edgar Manchón",
-    "AI Systems Builder",
-    "Web Developer",
-    "Automation Engineer",
-    "SaaS Builder",
+    "Python Backend Developer",
+    "AI Integration Engineer",
+    "RAG Developer",
+    "AI Automation Engineer",
     "AI Agent Developer",
     "Next.js",
     "TypeScript",
@@ -60,7 +47,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Edgar Manchón — AI Systems Builder",
+        alt: "Edgar Manchón — Python Backend & AI Developer",
       },
     ],
   },
@@ -103,7 +90,7 @@ const jsonLd = {
   "@type": "Person",
   name: "Edgar Manchón",
   url: siteUrl,
-  jobTitle: "AI Systems Builder",
+   jobTitle: "Python Backend & AI Developer",
   description,
   sameAs: [
     "https://github.com/Edgar-Manuel",
@@ -111,10 +98,12 @@ const jsonLd = {
   ],
   knowsAbout: [
     "Artificial Intelligence",
-    "Web Development",
-    "Automation",
-    "SaaS",
-    "AI Agents",
+     "Backend Development",
+     "FastAPI",
+     "RAG",
+     "LLM Integrations",
+     "Automation",
+     "AI Agents",
     "Next.js",
     "TypeScript",
     "Python",
@@ -128,14 +117,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="es"
-      className={`${inter.variable} ${jetbrains.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="es" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

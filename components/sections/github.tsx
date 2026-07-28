@@ -6,10 +6,10 @@ import { FadeIn, Stagger, StaggerItem } from "@/components/ui/fade-in";
 import { SectionHeader } from "@/components/ui/section-header";
 
 const stats = [
-  { label: "Repos", value: "41", icon: BookMarked },
-  { label: "Stars totales", value: "175", icon: Star },
-  { label: "Seguidores", value: "3", icon: Users },
-  { label: "Siguiendo", value: "9", icon: GitFork },
+  { label: "Repositorios", value: "40+", icon: BookMarked },
+  { label: "Proyectos", value: "6", icon: Star },
+  { label: "Backend", value: "Python", icon: Users },
+  { label: "Disponibilidad", value: "Remote ES", icon: GitFork },
 ];
 
 const languages = [
@@ -126,14 +126,14 @@ export function GitHubSection() {
                 <span className="h-2 w-2 rounded-full bg-white/10" />
                 <span className="h-2 w-2 rounded-full bg-white/10" />
               </div>
-              <span className="label-mono">github / dashboard</span>
+              <span className="label-mono">github / public work</span>
               <div className="flex items-center gap-1.5">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60 opacity-75" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
                 </span>
-                <span className="font-mono text-[10px] uppercase tracking-wider text-fg-muted">
-                  syncing
+                   <span className="font-mono text-[10px] uppercase tracking-wider text-fg-muted">
+                   public
                 </span>
               </div>
             </div>
@@ -151,7 +151,7 @@ export function GitHubSection() {
                   <div className="flex items-center justify-between">
                     <s.icon className="h-3.5 w-3.5 text-fg-muted" />
                     <span className="font-mono text-[9px] text-fg-faint">
-                      ↑ 12%
+                      selected
                     </span>
                   </div>
                   <div className="mt-3 font-sans text-2xl md:text-3xl font-semibold tracking-tighter text-fg">
@@ -168,13 +168,13 @@ export function GitHubSection() {
             <div className="border-b border-border bg-bg-elevated/20 p-5">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="label-mono">Contribuciones</div>
+                  <div className="label-mono">Forma de trabajo</div>
                   <div className="mt-1 text-[11px] text-fg-faint">
-                    Últimas 13 semanas · actividad reciente
+                    proyectos pequeños, iteración continua
                   </div>
                 </div>
                 <div className="flex items-center gap-1.5 font-mono text-[9px] text-fg-subtle">
-                  <span>menos</span>
+                  <span>idea</span>
                   {[0.1, 0.3, 0.55, 0.8, 1].map((v) => (
                     <span
                       key={v}
@@ -184,7 +184,7 @@ export function GitHubSection() {
                       }}
                     />
                   ))}
-                  <span>más</span>
+                  <span>sistema</span>
                 </div>
               </div>
               <div className="mt-4 flex gap-1 mask-fade-x">
@@ -199,7 +199,7 @@ export function GitHubSection() {
                     style={{
                       background: `rgba(255,255,255,${0.04 + v * 0.4})`,
                     }}
-                    title={`${Math.round(v * 12)} contribuciones`}
+                      title="De idea a sistema funcional"
                   />
                 ))}
               </div>
@@ -242,13 +242,12 @@ export function GitHubSection() {
                 <div className="label-mono">Actividad reciente</div>
                 <div className="mt-4 space-y-3">
                   {[
-                    { t: "Updated repo", r: "3d64r3p0s", s: "hace 2h" },
-                    { t: "Updated repo", r: "poker-arena", s: "hace 2d" },
-                    { t: "Updated repo", r: "terminaldeterminales", s: "hace 5d" },
-                    { t: "Updated repo", r: "Gymbro", s: "hace 5d" },
-                    { t: "Updated repo", r: "peluqueria-cool", s: "hace 1 sem" },
-                    { t: "Updated repo", r: "biolink", s: "hace 1 sem" },
-                    { t: "Updated repo", r: "confesionario-virtual", s: "hace 1 sem" },
+                    { t: "Featured project", r: "tubethink", s: "RAG" },
+                    { t: "Featured project", r: "cumple", s: "Agents" },
+                    { t: "Featured project", r: "ebookforge-ai", s: "LLMs" },
+                    { t: "Featured project", r: "peluqueria-cool", s: "APIs" },
+                    { t: "Featured project", r: "3d64rr3p0s", s: "Next.js" },
+                    { t: "Featured project", r: "simulacrum-2.0", s: "Multi-LLM" },
                   ].map((a, i) => (
                     <motion.div
                       key={i}

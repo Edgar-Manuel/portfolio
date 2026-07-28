@@ -1,5 +1,6 @@
 import { Nav } from "@/components/nav";
 import { Hero } from "@/components/sections/hero";
+import { Availability } from "@/components/sections/availability";
 import { About } from "@/components/sections/about";
 import { Stack } from "@/components/sections/stack";
 import { Projects } from "@/components/sections/projects";
@@ -14,6 +15,7 @@ export default function Home() {
     <main className="relative">
       <Nav />
       <Hero />
+      <Availability />
       <About />
       <Projects />
       <Stack />

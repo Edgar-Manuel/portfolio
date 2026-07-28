@@ -27,8 +27,8 @@ const links = [
   },
   {
     label: "Email",
-    handle: "hola@edgarmanchon.com",
-    href: "mailto:hola@edgarmanchon.com",
+    handle: "emc2mil24@gmail.com",
+    href: "mailto:emc2mil24@gmail.com",
     icon: <Mail className="h-5 w-5" />,
   },
 ];
@@ -67,21 +67,21 @@ export function CTA() {
                   <span>Colaboración</span>
                 </div>
                 <h2 className="mt-6 font-sans text-display-md md:text-display-lg font-semibold tracking-tighter text-fg text-balance">
-                  ¿Construimos algo
+                  ¿Hablamos de una
                   <br />
-                  <span className="gradient-text">interesante?</span>
+                  <span className="gradient-text">oportunidad?</span>
                 </h2>
                 <p className="mt-6 max-w-lg text-[15px] md:text-base leading-relaxed text-fg-muted text-pretty">
-                  Estoy abierto a colaborar en proyectos relacionados con
-                  inteligencia artificial, automatización, desarrollo web y
-                  nuevos productos digitales.
+                  Estoy buscando incorporarme a un equipo donde pueda aportar
+                  en backend Python, integraciones de IA, RAG y automatización.
+                  Disponible para Santander, Cantabria o remoto desde España.
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <a
-                    href="mailto:hola@edgarmanchon.com"
+                    href="mailto:emc2mil24@gmail.com"
                     className="btn-primary group"
                   >
-                    Iniciar conversación
+                    Contactar por email
                     <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </a>
                   <a href="#trabajo" className="btn-ghost">

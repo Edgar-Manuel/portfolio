@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Check, Code2, Cpu, Lightbulb, Target } from "lucide-react";
+import { ArrowUpRight, Check, Code2, Lightbulb, Target } from "lucide-react";
 import { FadeIn, Stagger, StaggerItem } from "@/components/ui/fade-in";
 import { SectionHeader } from "@/components/ui/section-header";
 import { cn } from "@/lib/utils";
@@ -12,111 +12,120 @@ type Project = {
   number: string;
   name: string;
   tagline: string;
-  status: "Live" | "In progress" | "Concept" | "Production";
+  status: "Live demo" | "MVP" | "In progress" | "Client project" | "Research";
   problem: string;
   solution: string;
   technologies: string[];
   result: string;
+  href: string;
+  demo?: string;
   accent: string;
   visual: React.ReactNode;
 };
 
 const projects: Project[] = [
   {
-    id: "weekly-shift",
+    id: "gymbro",
     number: "01",
-    name: "Weekly Shift",
-    tagline: "Gestión de horarios y planificación de equipos.",
-    status: "Production",
+    name: "gymbro",
+    tagline: "PWA de entrenamiento inteligente, 100% offline y open source.",
+    status: "MVP",
     problem:
-      "Equipos pequeños y medianos gestionan turnos en hojas de cálculo, con errores de cobertura, conflictos de disponibilidad y baja visibilidad.",
+      "Las apps de fitness son caras, requieren conexión o venden datos personales. Necesitaba una herramienta gratuita, offline y adaptada a mi método de entrenamiento.",
     solution:
-      "Aplicación web con planificación visual, rotaciones automáticas, control de disponibilidad y notificaciones centralizadas para managers y empleados.",
-    technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Resend"],
+      "PWA completa con React 19, almacenamiento local (Dexie/IndexedDB), clasificación tier de ejercicios, generador de rutinas con sistema RIR de progresión y calculadora nutricional.",
+    technologies: ["React 19", "TypeScript", "Vite", "Dexie.js", "Zustand", "shadcn/ui", "Tailwind", "PWA", "Offline-first"],
     result:
-      "Reducción de tiempo de planificación, eliminación de conflictos de turnos y visibilidad en tiempo real de la cobertura del equipo.",
+      "App 100% offline e instalable como PWA con biblioteca de ejercicios, dashboard de progreso, rutinas personalizadas y sincronización pendiente. Sin servidores, sin anuncios, sin tracking.",
+    href: "https://github.com/Edgar-Manuel/Gymbro-",
+    accent: "from-emerald-300/20 via-emerald-200/10",
+    visual: <GymbroVisual />,
+  },
+  {
+    id: "tubethink",
+    number: "02",
+    name: "tubethink",
+    tagline: "Base de conocimiento IA sobre vídeos técnicos.",
+    status: "MVP",
+    problem:
+      "El conocimiento técnico está disperso en vídeos largos y es difícil encontrar una respuesta concreta con contexto.",
+    solution:
+      "Pipeline de ingesta y consulta con transcripción, embeddings, búsqueda híbrida, chat persistente y grafo de conceptos.",
+    technologies: ["Python", "RAG", "PostgreSQL", "Flask", "Embeddings"],
+    result:
+      "Un sistema separable por etapas para ingesta, recuperación y generación, preparado para evaluar la calidad de las respuestas.",
+    href: "https://github.com/Edgar-Manuel/tubethink",
     accent: "from-sky-300/20 via-sky-200/10",
     visual: <ShiftVisual />,
   },
   {
-    id: "conceptuai",
-    number: "02",
-    name: "ConceptuAI",
-    tagline: "Soluciones IA aplicadas a empresas.",
-    status: "Live",
+    id: "cumple",
+    number: "03",
+    name: "cumple",
+    tagline: "SaaS multi-agente para recordatorios y regalos.",
+    status: "MVP",
     problem:
-      "Empresas con procesos intensivos en conocimiento buscan integrar IA pero carecen de estrategia técnica, prototipos funcionales y casos de uso claros.",
+      "Recordar cumpleaños y preparar una respuesta personalizada requiere coordinar varias tareas y fuentes de información.",
     solution:
-      "Implementaciones a medida con LLMs, embeddings y agentes: clasificación, generación, búsqueda semántica y asistentes internos conectados a sus datos.",
-    technologies: ["OpenAI APIs", "DeepSeek", "Next.js", "Python", "PostgreSQL"],
+      "Arquitectura con agentes especializados para coordinación, mensajes, recomendaciones y funciones sociales.",
+    technologies: ["Python", "FastAPI", "PostgreSQL", "Redis", "React"],
     result:
-      "Sistemas IA en producción, integración con datos reales del cliente y workflows automatizados con resultados medibles.",
+      "MVP funcional para explorar orquestación, persistencia y workflows de varios pasos con agentes.",
+    href: "https://github.com/Edgar-Manuel/cumple",
     accent: "from-violet-300/20 via-violet-200/10",
     visual: <ConceptuVisual />,
   },
   {
-    id: "call-assistant",
-    number: "03",
-    name: "Asistente de llamadas IA",
-    tagline: "Atención automática mediante voz.",
-    status: "Live",
+    id: "ebookforge-ai",
+    number: "04",
+    name: "ebookforge-ai",
+    tagline: "Pipeline de generación de eBooks con IA.",
+    status: "In progress",
     problem:
-      "Negocios reciben llamadas repetitivas para consultas, citas y gestión de incidencias que saturan al equipo humano y elevan los tiempos de respuesta.",
+      "Crear un eBook profesional implica coordinar investigación, estructura, escritura, formato y marketing.",
     solution:
-      "Agente de voz conversacional con STT + LLM + TTS, capaz de entender contexto, responder dudas, registrar información y escalar a humanos cuando es necesario.",
-    technologies: ["Python", "OpenAI APIs", "WebRTC", "Node.js", "PostgreSQL"],
+      "Pipeline full stack por etapas con streaming, generación asistida y selección de modelos según la tarea.",
+    technologies: ["Next.js", "TypeScript", "Claude", "Google GenAI", "Streaming"],
     result:
-      "Atención 24/7, clasificación automática de llamadas y derivación inteligente que libera al equipo de tareas repetitivas.",
+      "Flujo reproducible para convertir una idea editorial en contenido estructurado y listo para formato.",
+    href: "https://github.com/Edgar-Manuel/ebookforge-ai",
     accent: "from-emerald-300/20 via-emerald-200/10",
     visual: <CallVisual />,
   },
   {
-    id: "dropshipping-saas",
-    number: "04",
-    name: "SaaS Dropshipping IA",
-    tagline: "Investigación y contenido automatizado.",
-    status: "In progress",
+    id: "peluqueria-cool",
+    number: "05",
+    name: "peluqueria-cool",
+    tagline: "Reservas y asistente conversacional para un negocio real.",
+    status: "Client project",
     problem:
-      "Tiendas de dropshipping dedican horas a investigar productos ganadores, analizar competencia y generar creatividades y copies para anuncios.",
+      "Un negocio local necesita atender dudas y gestionar citas sin depender de una agenda manual.",
     solution:
-      "Plataforma SaaS con pipelines automatizados que combinan scraping, análisis de tendencias, generación de contenido y assets listos para campañas.",
-    technologies: ["Crawl4AI", "Python", "OpenAI APIs", "Next.js", "Stripe"],
+      "Web de reservas con asistente que entiende peticiones en lenguaje natural y ayuda a organizar citas.",
+    technologies: ["JavaScript", "APIs", "Conversational AI", "WhatsApp"],
     result:
-      "Aceleración del ciclo de validación de productos y producción de material creativo a escala.",
+      "Un caso aplicado de automatización conversacional para sustituir procesos repetitivos de atención.",
+    href: "https://github.com/Edgar-Manuel/peluqueria-cool",
     accent: "from-amber-300/20 via-amber-200/10",
     visual: <DropshipVisual />,
   },
   {
-    id: "real-estate-scraping",
-    number: "05",
-    name: "Scraping Inmobiliario",
-    tagline: "Captación masiva y estructuración de datos.",
-    status: "Production",
+    id: "3d64rr3p0s",
+    number: "06",
+    name: "3d64rr3p0s",
+    tagline: "Directorio de repositorios con chat y análisis IA.",
+    status: "Live demo",
     problem:
-      "Inversoras y agencias inmobiliarias necesitan datos actualizados del mercado: precios, disponibilidad, ubicaciones y tendencias en distintas fuentes.",
+      "Descubrir repositorios útiles requiere filtrar mucha información y revisar manualmente su estado.",
     solution:
-      "Sistema de crawling multi-fuente con normalización, deduplicación, geolocalización y almacenamiento estructurado listo para análisis y modelos.",
-    technologies: ["Crawl4AI", "Python", "PostgreSQL", "n8n", "MongoDB"],
+      "Directorio con chat IA, GitHub API, análisis de salud y sincronización automática mediante GitHub Actions.",
+    technologies: ["Next.js", "React", "Groq", "GitHub API", "Tailwind"],
     result:
-      "Base de datos centralizada del mercado inmobiliario con actualización continua y datos limpios para toma de decisiones.",
+      "Producto público con demo online y automatización de actualización.",
+    href: "https://github.com/Edgar-Manuel/3d64rr3p0s",
+    demo: "https://3d64rr3p0s.vercel.app/",
     accent: "from-rose-300/20 via-rose-200/10",
     visual: <ScrapingVisual />,
-  },
-  {
-    id: "business-automation",
-    number: "06",
-    name: "Automatizaciones Empresariales",
-    tagline: "Workflows para eliminar tareas repetitivas.",
-    status: "Live",
-    problem:
-      "Equipos operativos pierden horas en tareas mecánicas: mover datos entre apps, generar reportes, enviar emails y mantener CRMs actualizados.",
-    solution:
-      "Workflows personalizados con n8n y Make, integrando CRM, email, hojas de cálculo y APIs internas con manejo de errores y monitorización.",
-    technologies: ["n8n", "Make", "Resend", "Node.js", "Stripe"],
-    result:
-      "Horas semanales recuperadas, menos errores manuales y procesos críticos operando de forma autónoma.",
-    accent: "from-cyan-300/20 via-cyan-200/10",
-    visual: <AutomationVisual />,
   },
 ];
 
@@ -144,7 +153,7 @@ export function Projects() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60 opacity-75" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
               </span>
-              <span>6 proyectos · 4 verticales</span>
+               <span>6 casos · código público</span>
             </div>
           </div>
         </FadeIn>
@@ -266,7 +275,7 @@ function ProjectCard({ project, large = false }: { project: Project; large?: boo
             </AnimatePresence>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center gap-1.5">
+           <div className="mt-6 flex flex-wrap items-center gap-1.5">
             {project.technologies.slice(0, expanded ? project.technologies.length : 4).map((t) => (
               <span key={t} className="chip">
                 {t}
@@ -274,6 +283,29 @@ function ProjectCard({ project, large = false }: { project: Project; large?: boo
             ))}
             {!expanded && project.technologies.length > 4 && (
               <span className="chip">+{project.technologies.length - 4}</span>
+            )}
+          </div>
+
+          <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-border pt-5">
+            <a
+              href={project.href}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="link-underline text-xs font-medium"
+            >
+              Ver repositorio
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
+            {project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="link-underline text-xs font-medium text-fg-muted"
+              >
+                Abrir demo
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </a>
             )}
           </div>
         </div>
@@ -484,28 +516,56 @@ function ScrapingVisual() {
   );
 }
 
-function AutomationVisual() {
+function GymbroVisual() {
   return (
-    <div className="flex w-full max-w-md items-center gap-2">
-      {[
-        { label: "Trigger", icon: "⚡" },
-        { label: "Process", icon: "→" },
-        { label: "Output", icon: "✓" },
-      ].map((step, i) => (
-        <div key={i} className="flex flex-1 items-center gap-2">
-          <div className="flex-1 rounded-lg border border-border bg-bg/40 p-3 text-center">
-            <div className="text-base">{step.icon}</div>
-            <div className="mt-1 font-mono text-[9px] uppercase tracking-wider text-fg-muted">
-              {step.label}
+    <div className="flex w-full max-w-xs items-center justify-center">
+      <div className="relative rounded-[24px] border-2 border-white/15 bg-bg/60 p-2 shadow-lg">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-4 w-20 rounded-b-xl bg-white/10" />
+        <div className="rounded-[16px] border border-white/10 bg-bg/80 p-2.5">
+          <div className="flex items-center justify-between border-b border-white/10 pb-2">
+            <span className="text-[8px] font-bold text-emerald-400">GYMBRO</span>
+            <div className="flex gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
+              <span className="h-1.5 w-1.5 rounded-full bg-white/20" />
             </div>
           </div>
-          {i < 2 && (
-            <div className="text-fg-faint">
-              <Cpu className="h-3.5 w-3.5" />
+          <div className="mt-2 space-y-1.5">
+            <div className="flex items-center gap-1.5">
+              <div className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              <div className="h-1 flex-1 rounded bg-white/20" />
+              <span className="text-[6px] text-fg-muted">S</span>
             </div>
-          )}
+            <div className="flex items-center gap-1.5">
+              <div className="h-1.5 w-1.5 rounded-full bg-blue-400" />
+              <div className="h-1 flex-1 rounded bg-white/15" />
+              <span className="text-[6px] text-fg-muted">A</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="h-1.5 w-1.5 rounded-full bg-yellow-400" />
+              <div className="h-1 flex-1 rounded bg-white/10" />
+              <span className="text-[6px] text-fg-muted">B</span>
+            </div>
+          </div>
+          <div className="mt-2 grid grid-cols-4 gap-0.5">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="aspect-square rounded bg-white/10" style={{ opacity: 0.3 + (i % 4) * 0.2 }} />
+            ))}
+          </div>
+          <div className="mt-1.5 flex items-center justify-between border-t border-white/10 pt-1.5">
+            <div className="flex gap-0.5">
+              {[40, 65, 30, 80, 55].map((h, i) => (
+                <div key={i} className="w-0.5 rounded-t-sm bg-emerald-400/60" style={{ height: `${h * 0.2}px` }} />
+              ))}
+            </div>
+            <span className="text-[6px] text-fg-muted">offline</span>
+          </div>
         </div>
-      ))}
+      </div>
+      <div className="ml-2 space-y-1">
+        <div className="rounded border border-white/10 bg-white/[0.04] px-1.5 py-0.5 text-[6px] font-mono text-emerald-400">PWA</div>
+        <div className="rounded border border-white/10 bg-white/[0.04] px-1.5 py-0.5 text-[6px] font-mono text-blue-400">100% local</div>
+        <div className="rounded border border-white/10 bg-white/[0.04] px-1.5 py-0.5 text-[6px] font-mono text-fg-muted">React 19</div>
+      </div>
     </div>
   );
 }
