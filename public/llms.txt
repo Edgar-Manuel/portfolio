@@ -1,0 +1,22 @@
+# Edgar Manchón — Python Backend & AI Developer
+> Portfolio & Technical Resume for AI Systems, RAG Pipelines, and Full-Stack Engineering
+
+## Developer Summary
+- Name: Edgar Manchón (Edgar-Manuel)
+- Role: Python Backend & AI Developer / AI Integration Engineer
+- Location: Santander, Cantabria, Spain (Open for Remote / On-site in Spain)
+- Contact: emc2mil24@gmail.com
+- GitHub: https://github.com/Edgar-Manuel
+- LinkedIn: https://linkedin.com/in/edgarmanchon
+
+## Core Technical Superpowers
+- Backend: Python 3.12, FastAPI, Flask, AsyncIO, REST APIs, PostgreSQL, Redis, Docker
+- AI & RAG: LangChain, LlamaIndex, pgvector, OpenAI GPT-4o, DeepSeek, Claude 3.5 Sonnet, OOMOL CLI (`oo`), Tool Calling
+- Frontend: Next.js 14 (App Router), TypeScript, React 19, Tailwind CSS, Framer Motion, PWA / Offline-First
+
+## Key Featured Projects
+1. Gymbro: PWA fitness app, 100% offline-first with React 19, Dexie.js (IndexedDB), and Zustand. Live demo: https://gym-bro.appwrite.network/
+2. TubeThink: RAG knowledge base for technical video transcripts with hybrid search (pgvector + BM25).
+3. Cumple SaaS: Multi-agent system for birthday reminders and personalized gift recommendations built with FastAPI & Redis.
+4. EBookForge AI: Autonomous ebook generation pipeline with Claude Code & SSE streaming.
+5. 3D64RR3P0S: Interactive repository directory with AI chat & health analysis. Live demo: https://3d64rr3p0s.vercel.app/
