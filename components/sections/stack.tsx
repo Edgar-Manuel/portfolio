@@ -71,6 +71,22 @@ async def run_agent(req: PromptRequest):
     },
   },
   {
+    name: "OOMOL CLI (oo)",
+    category: "IA",
+    description: "Orquestación de conectores, herramientas para agentes IA y cliente LLM unificado.",
+    symbol: "oo",
+    codeSnippet: {
+      filename: "oomol_config.sh",
+      code: `# OOMOL CLI authentication & LLM routing
+$ oo login --team=Edgar-Manuel_team
+✓ Logged in to oomol.com account Edgar-Manuel
+
+# Fetch OpenAI-compatible base URL & active model
+$ oo llm config
+{"baseUrl":"https://llm.oomol.com/v1","model":"oomol-chat"}`,
+    },
+  },
+  {
     name: "Next.js 14",
     category: "Frontend",
     description: "App Router, Server Components, SSR y aplicaciones reactivas.",

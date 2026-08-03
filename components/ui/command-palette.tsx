@@ -222,9 +222,43 @@ export function CommandPalette({
         ...prev,
         {
           type: "output",
-          text: `Comandos disponibles:\n  help        - Muestra esta ayuda\n  skills      - Muestra el stack técnico principal\n  projects    - Lista los proyectos en producción/MVP\n  contact     - Muestra información de contacto\n  hire        - Abre el resumen rápido para reclutadores\n  clear       - Limpia la pantalla\n  exit        - Vuelve al menú interactivo`,
+          text: `Comandos disponibles:\n  help        - Muestra esta ayuda\n  skills      - Muestra el stack técnico principal\n  projects    - Lista los proyectos en producción/MVP\n  contact     - Muestra información de contacto\n  hire        - Abre el resumen rápido para reclutadores\n  oo status   - Muestra el estado de la sesión OOMOL CLI\n  oo llm      - Muestra la configuración del cliente LLM unificado\n  clear       - Limpia la pantalla\n  exit        - Vuelve al menú interactivo`,
         },
       ]);
+    } else if (cleanCmd.startsWith("oo")) {
+      if (cleanCmd === "oo" || cleanCmd === "oo status" || cleanCmd === "oo auth status") {
+        setTerminalLogs((prev) => [
+          ...prev,
+          {
+            type: "output",
+            text: `✓ Logged in to oomol.com account Edgar-Manuel\n  - Active account: true\n  - API key status: Valid\n  - Default team: Edgar-Manuel_team\n  - Accounts:\n    * Edgar-Manuel [active] (oomol.com)`,
+          },
+        ]);
+      } else if (cleanCmd === "oo llm" || cleanCmd === "oo llm config") {
+        setTerminalLogs((prev) => [
+          ...prev,
+          {
+            type: "output",
+            text: `{"apiKey":"api-6e8f376...","baseUrl":"https://llm.oomol.com/v1","chatCompletionsUrl":"https://llm.oomol.com/v1/chat/completions","model":"oomol-chat"}`,
+          },
+        ]);
+      } else if (cleanCmd.includes("skills")) {
+        setTerminalLogs((prev) => [
+          ...prev,
+          {
+            type: "output",
+            text: `✓ Found 4 skills in OOMOL registry (Universal + Claude Code):\n  • oo (Universal API Router & Connected Accounts)\n  • oo-find-skills (Skill Discovery & Catalog)\n  • oo-create-skill (Skill Authoring & Workflow Adoption)\n  • oo-publish-skill (Registry Publisher)`,
+          },
+        ]);
+      } else {
+        setTerminalLogs((prev) => [
+          ...prev,
+          {
+            type: "output",
+            text: `OOMOL CLI v1.6.7 (win32-x64)\nCuenta activa: Edgar-Manuel (Edgar-Manuel_team)\nPrueba 'oo status', 'oo llm' o 'oo skills'.`,
+          },
+        ]);
+      }
     } else if (cleanCmd === "skills") {
       setTerminalLogs((prev) => [
         ...prev,
