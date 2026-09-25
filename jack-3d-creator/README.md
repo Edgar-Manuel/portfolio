@@ -13,9 +13,9 @@ npm run preview   # serve the production build
 
 ## About the images
 
-The original spec pointed every image at third-party CDNs (`motionsites.ai`, `*.figma.site`, `images.higgs.ai` / `cloudfront.net`). This environment's network policy blocks outbound requests to those hosts, so every image in this build is a **local placeholder SVG** under `public/assets/`, generated to match the exact dimensions and aspect ratios the layout expects.
+The original spec pointed every image at third-party CDNs (`motionsites.ai`, `*.figma.site`, `images.higgs.ai` / `cloudfront.net`). This environment's network policy blocks outbound requests to those hosts, so every image in this build except the hero head is a **local placeholder SVG** under `public/assets/`, generated to match the exact dimensions and aspect ratios the layout expects.
 
-All 35 placeholders are wired through a single file: **`src/data/assets.ts`**. Each entry has:
+All 34 placeholders are wired through a single file: **`src/data/assets.ts`**. Each entry has:
 
 - `local` — the path the app actually renders (`/assets/...`)
 - `sourceUrl` — the original third-party URL from the spec, kept for reference
@@ -30,10 +30,13 @@ No component code needs to change — every section reads from this file.
 
 | Group | Count | Notes |
 |---|---|---|
-| Hero portrait | 1 | `hero/portrait.svg` — cutout photo of "Jack" |
 | About decorations | 4 | moon, 3D object, lego, 3D group icons |
 | Marquee | 21 | originally animated GIFs — the placeholders are static; swap for real GIFs (or MP4/WebM loops) for motion |
 | Project images | 9 | 3 projects × 3 images each |
+
+## Hero head
+
+The hero uses two real, background-removed cutouts (`public/assets/hero/head.webp` and `head-shades.webp`) animated by `src/components/AnimatedHead.tsx`: it floats continuously, swaps to the sunglasses version on a timer with a small elastic pop, and swaps on hover (tap on touch). With `prefers-reduced-motion` it stays still and only swaps on hover/tap.
 
 ## Placeholder contact info
 

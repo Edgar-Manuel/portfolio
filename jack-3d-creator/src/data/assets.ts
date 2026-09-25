@@ -3,7 +3,7 @@
  *
  * The original spec pointed at third-party CDNs (motionsites.ai, figma.site,
  * higgs.ai/cloudfront) that this environment's network policy blocks, so every
- * entry below is a local placeholder SVG under /public/assets. `sourceUrl` is
+ * AssetRef below is a local placeholder SVG under /public/assets. `sourceUrl` is
  * kept for reference -- download the real file and drop it at `local`
  * (same path, any raster format) to swap it in, no code changes needed.
  */
@@ -13,10 +13,9 @@ export interface AssetRef {
   sourceUrl: string;
 }
 
-export const heroPortrait: AssetRef = {
-  local: "/assets/hero/portrait.svg",
-  sourceUrl:
-    "https://shrug-person-78902957.figma.site/_components/v2/d24c01ad3a56fc65e942a1f501eb73db42d7cf9a/Rectangle_40443.81459862.png",
+export const heroHead = {
+  plain: "/assets/hero/head.webp",
+  shades: "/assets/hero/head-shades.webp",
 };
 
 export const aboutDecorations = {

@@ -1,7 +1,8 @@
 import { FadeIn } from "../components/FadeIn";
 import { Magnet } from "../components/Magnet";
 import { ContactButton } from "../components/ContactButton";
-import { heroPortrait } from "../data/assets";
+import { AnimatedHead } from "../components/AnimatedHead";
+import { heroHead } from "../data/assets";
 
 const NAV_LINKS: Array<{ label: string; href: string }> = [
   { label: "About", href: "#about" },
@@ -52,11 +53,10 @@ export function HeroSection() {
           inactiveTransition="transform 0.6s ease-in-out"
         >
           <FadeIn delay={0.6} y={30}>
-            <img
-              src={heroPortrait.local}
+            <AnimatedHead
+              src={heroHead.plain}
+              shadesSrc={heroHead.shades}
               alt="Jack, 3D creator"
-              className="w-full h-auto select-none pointer-events-none"
-              draggable={false}
             />
           </FadeIn>
         </Magnet>
